@@ -236,43 +236,62 @@ int BinarySearchTree::height(TreeNode *node) const {
 		return 1 + max(height(node->leftPtr), height(node->rightPtr));
 }
 
+/***************************************************************************************
 
+*    Usage: Modified
+*    Title: Tree Traversals (Inorder, Preorder and Postorder)
+*    Author: Geeks For Geeks
+*    Date: Unknown
+*    Available: http://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
+*
+***************************************************************************************/
 
-
-
-
-
-
-
-
-// public show binary search tree in order
+// public showInOrder method
 void BinarySearchTree::showInOrder() const {
 	return showInOrder(root);
 }
 
-// private recursive show binary search tree in order
-void BinarySearchTree::showInOrder(TreeNode* node) const {
+// private recursive shoInOrder method
+void BinarySearchTree::showInOrder(TreeNode *node) const {
 	if (node != nullptr) {
 		showInOrder(node->leftPtr);
-		cout << node->city.name << " ";
+		cout << node->city.name << ", ";
 		showInOrder(node->rightPtr);
 	}
 }
 
-void BinarySearchTree::showPreOrder() const
-{
+// public showPostOrder method
+void BinarySearchTree::showPostOrder() const {
+	return showPostOrder(root);
 }
 
-void BinarySearchTree::showPreOrder(TreeNode* node) const
-{
+// private recursive showPostOrder method
+void BinarySearchTree::showPostOrder(TreeNode *node) const {
+	if (node != nullptr) {
+		// first recur on left subtree
+		showPostOrder(node->leftPtr);
+		// then recur on right subtree
+		showPostOrder(node->rightPtr);
+		// now deal with the node
+		cout << node->city.name << ", ";
+	}
 }
 
-void BinarySearchTree::showPostOrder() const
-{
+// public showPreOrder method
+void BinarySearchTree::showPreOrder() const {
+	return showPreOrder(root);
 }
 
-void BinarySearchTree::showPostOrder(TreeNode* node) const
-{
+// private recursive showPreOrder method
+void BinarySearchTree::showPreOrder(TreeNode *node) const {
+	if (node != nullptr) {
+		/* first print data of node */
+		cout << node->city.name << ", ";
+		/* then recur on left sutree */
+		showPreOrder(node->leftPtr);
+		/* now recur on right subtree */
+		showPreOrder(node->rightPtr);
+	}
 }
 
 // public pretty print method

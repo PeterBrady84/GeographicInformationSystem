@@ -81,6 +81,21 @@ int main() {
 	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cout << "Height : " << cityTree.height() << endl << endl;
 
+	cout << "Tree In Order" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.showInOrder();
+	cout << endl << endl;
+
+	cout << "Tree Pre Order" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.showPreOrder();
+	cout << endl << endl;
+
+	cout << "Tree Post Order" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.showPostOrder();
+	cout << endl << endl;
+
 	cout << "Delete Tree (Destructor)" << endl;
 	cityTree.~BinarySearchTree();
 	cout << "Print Tree" << endl;
