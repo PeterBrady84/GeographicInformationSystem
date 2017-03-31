@@ -8,8 +8,6 @@
 #include <iomanip>
 using namespace std;
 
-/* ###########################  Public Methods  ########################### */
-
 // default constructor for binary search tree
 BinarySearchTree::BinarySearchTree() : root(nullptr) {}
 
@@ -70,7 +68,7 @@ TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) {
 			node->rightPtr = deleteByName(node->rightPtr, name);
 		}
 		else {
-			if (node->leftPtr == nullptr && node->rightPtr == nullptr) {
+			if (node->isLeaf()) {
 				delete node;
 				node = nullptr;
 			}
@@ -94,7 +92,79 @@ TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) {
 	return node;
 }
 
-// public search method
+// public delete by coordinates method
+void BinarySearchTree::deleteByCoord(pair<string, string> coords) {
+	deleteByCoord(root, coords);
+}
+
+// private recursive delete by coordinates methods
+TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> coords) {
+	if (node != nullptr) {
+		if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second)
+		{
+			if (node->isLeaf()) {
+				delete node;
+				node = nullptr;
+			}
+			else if (node->leftPtr == nullptr) {
+				TreeNode* temp = node;
+				node = node->rightPtr;
+				delete temp;
+			}
+			else if (node->rightPtr == nullptr) {
+				TreeNode* temp = node;
+				node = node->leftPtr;
+				delete temp;
+			}
+			else {
+				TreeNode* temp = minVal(node->rightPtr);
+				node->city.name = temp->city.name;
+				node->rightPtr = deleteByName(node->rightPtr, temp->city.name);
+			}
+		}
+		else {
+			node->leftPtr = deleteByCoord(node->leftPtr, coords);
+			node->rightPtr = deleteByCoord(node->rightPtr, coords);
+		}
+	}
+	return node;
+}
+
+// public search by name method
+bool BinarySearchTree::searchByName(string name) const {
+	return searchByName(root, name);
+}
+
+// private recursive search by name methods
+bool BinarySearchTree::searchByName(TreeNode* node, string name) const {
+	if (node == nullptr) {
+		return false;
+	}
+	else if (node->city.name == name) {
+		return true;
+	}
+	else if (node->city.name > name) {
+		if (node->leftPtr == nullptr) {
+			return false;
+		}
+		else {
+			return searchByName(node->leftPtr, name);
+		}
+	}
+	else if (node->city.name < name) {
+		if (node->rightPtr == nullptr) {
+			return false;
+		}
+		else {
+			return searchByName(node->rightPtr, name);
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+// public search by coordinates method
 bool BinarySearchTree::searchByCoords(pair<string, string> coords) const {
 	return searchByCoords(root, coords);
 }
@@ -128,26 +198,6 @@ TreeNode* BinarySearchTree::minVal(TreeNode* node) {
 
 
 
-
-
-void BinarySearchTree::deleteByCoord(pair<string, string> coords)
-{
-}
-
-TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> coords)
-{
-	return node;
-}
-
-bool BinarySearchTree::searchByName(string name) const
-{
-	return true;
-}
-
-bool BinarySearchTree::searchByName(TreeNode* node, string name) const
-{
-	return true;
-}
 
 
 
