@@ -169,7 +169,7 @@ bool BinarySearchTree::searchByCoords(pair<string, string> coords) const {
 	return searchByCoords(root, coords);
 }
 
-// private recursive search by coordinates methods
+// private recursive search by coordinates method
 bool BinarySearchTree::searchByCoords(TreeNode* node, pair<string, string> coords) const {
 	if (node == nullptr) {
 		return false;
@@ -243,27 +243,28 @@ void BinarySearchTree::showPostOrder(TreeNode* node) const
 {
 }
 
-void BinarySearchTree::prettyPrint()
-{
-	postOrder(root, 0);
+// public pretty print method
+void BinarySearchTree::prettyPrint() const {
+	prettyPrint(root, 5);
 }
 
-
 // http://stackoverflow.com/a/26699993
-void BinarySearchTree::postOrder(TreeNode *node, int indent)
-{
+// private recursive pretty print method
+void BinarySearchTree::prettyPrint(TreeNode *node, int indent) const {
 	if (node != nullptr) {
 		if (node->rightPtr) {
-			postOrder(node->rightPtr, indent + 6);
+			prettyPrint(node->rightPtr, indent + 6);
 		}
 		if (indent) {
 			cout << setw(indent) << ' ';
 		}
-		if (node->rightPtr) cout << " /\n" << setw(indent) << ' ';
+		if (node->rightPtr) {
+			cout << "    /\n" << setw(indent) << ' ';
+		}
 		cout << node->city.name << "\n ";
 		if (node->leftPtr) {
-			cout << setw(indent) << ' ' << " \\\n";
-			postOrder(node->leftPtr, indent + 4);
+			cout << setw(indent + 3) << ' ' << " \\\n";
+			prettyPrint(node->leftPtr, indent + 6);
 		}
 	}
 }

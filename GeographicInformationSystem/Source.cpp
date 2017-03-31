@@ -50,7 +50,7 @@ int main() {
 	cout << "Search By Name : " << cityTree.searchByName("London") << endl;		// true
 	cout << "Search By Name : " << cityTree.searchByName("Cork") << endl;		// false
 	cout << "Search By Coords : " << cityTree.searchByCoords(make_pair("49.2827° N", "123.1207° W")) << endl;		// true
-	cout << "Search By Coords : " << cityTree.searchByCoords(make_pair("41.3451° N", "193.5207° W")) << endl;		// false
+	cout << "Search By Coords : " << cityTree.searchByCoords(make_pair("41.3451° N", "193.5207° W")) << endl << endl;		// false
 
 	cityTree.deleteByCoord(make_pair("49.2827° N", "123.1207° W"));		// true
 	cityTree.deleteByCoord(make_pair("41.3451° N", "193.5207° W"));		// false

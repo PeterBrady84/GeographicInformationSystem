@@ -21,8 +21,7 @@ public:
 	void showInOrder() const;
 	void showPreOrder() const;
 	void showPostOrder() const;
-	void prettyPrint();
-	void postOrder(TreeNode * node, int indent);
+	void prettyPrint() const;
 	// TODO add cities within certain distance method
 private:
 	void deleteTree(TreeNode *& node); // used by destructor
@@ -35,6 +34,7 @@ private:
 	void showInOrder(TreeNode *node) const;
 	void showPreOrder(TreeNode *node) const;
 	void showPostOrder(TreeNode *node) const;
+	void prettyPrint(TreeNode * node, int indent) const;
 	TreeNode* minVal(TreeNode *node);
 	// TODO add cities within certain distance recursive method
 	TreeNode *root;
