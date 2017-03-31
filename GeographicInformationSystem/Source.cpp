@@ -6,9 +6,11 @@
 #include "City.h"
 #include "BinarySearchTree.h"
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 int main() {
+	cout << "Create Cities" << endl;
 	City city1 = City("Orlando", make_pair("28.5383° N", "81.3792° W"), 255483, 21);
 	City city2 = City("Reykjavik", make_pair("64.1265° N", "21.8174° W"), 119289, 4);
 	City city3 = City("Vancouver", make_pair("49.2827° N", "123.1207° W"), 603500, 9);
@@ -24,6 +26,7 @@ int main() {
 
 	BinarySearchTree cityTree = BinarySearchTree();
 
+	cout << "Insert Cities Into Tree" << endl;
 	cityTree.insert(city1);
 	cityTree.insert(city2);
 	cityTree.insert(city3);
@@ -36,26 +39,49 @@ int main() {
 	cityTree.insert(city10);
 	cityTree.insert(city11);
 	cityTree.insert(city12);
+	cout << "Insert City Into Tree Where Coordinates Already Exist" << endl;
 	cityTree.insert(city8);		// throws duplicate coordinates error
 
 	//cityTree.showInOrder();
 	cout << endl << endl;
+	cout << "Print Tree" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.prettyPrint();
 	cout << endl;
 
+	cout << "Delete Lisbon From Tree (By Name)" << endl;
 	cityTree.deleteByName("Lisbon");
+	cout << "Print Tree" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.prettyPrint();
 	cout << endl;
 
-	cout << "Search By Name : " << cityTree.searchByName("London") << endl;		// true
-	cout << "Search By Name : " << cityTree.searchByName("Cork") << endl;		// false
-	cout << "Search By Coords : " << cityTree.searchByCoords(make_pair("49.2827° N", "123.1207° W")) << endl;		// true
-	cout << "Search By Coords : " << cityTree.searchByCoords(make_pair("41.3451° N", "193.5207° W")) << endl << endl;		// false
-
-	cityTree.deleteByCoord(make_pair("49.2827° N", "123.1207° W"));		// true
-	cityTree.deleteByCoord(make_pair("41.3451° N", "193.5207° W"));		// false
-
+	cout << "Delete Vancouver From Tree (By Coordinates)" << endl;
+	cityTree.deleteByCoord(make_pair("49.2827° N", "123.1207° W"));
+	cout << "Print Tree" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.prettyPrint();
 	cout << endl;
+
+	cout << "Search for City By Name" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.searchByName("London");		// true
+	cityTree.searchByName("Cork");		// false
+	cout << "Search for City By Coordinates" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	if (!cityTree.searchByCoords(make_pair("21.3069° N", "157.8583° W"))) {
+		cout << "GPS coordinates not found" << endl;
+	}
+	if (!cityTree.searchByCoords(make_pair("49.2827° N", "123.1207° W"))) {
+		cout << "GPS coordinates not found" << endl;
+	}
+	cout << endl;
+
+	cout << "Delete Tree (Destructor)" << endl;
+	cityTree.~BinarySearchTree();
+	cout << "Print Tree" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.prettyPrint();
+	cout << endl << endl << "END" << endl;
 	system("pause");
 }

@@ -132,7 +132,13 @@ TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> c
 
 // public search by name method
 bool BinarySearchTree::searchByName(string name) const {
-	return searchByName(root, name);
+	if (searchByName(root, name)) {
+		return true;
+	}
+	else {
+		cout << "City name '" << name << "' not found!" << endl << endl;
+		return false;
+	}
 }
 
 // private recursive search by name methods
@@ -141,6 +147,7 @@ bool BinarySearchTree::searchByName(TreeNode* node, string name) const {
 		return false;
 	}
 	else if (node->city.name == name) {
+		cout << node->city;
 		return true;
 	}
 	else if (node->city.name > name) {
@@ -175,6 +182,7 @@ bool BinarySearchTree::searchByCoords(TreeNode* node, pair<string, string> coord
 		return false;
 	}
 	else if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second) {
+		cout << node->city;
 		return true;
 	}
 	else {
