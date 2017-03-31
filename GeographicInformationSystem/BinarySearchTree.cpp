@@ -6,6 +6,7 @@
 #include "BinarySearchTree.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 using namespace std;
 
 // default constructor for binary search tree
@@ -31,8 +32,18 @@ void BinarySearchTree::insert(City city) {
 	insert(city, root);
 }
 
+/***************************************************************************************
+
+*    Usage: Modified
+*    Title: Absolute C++, 6th Edition
+*    Author: Savitch, J
+*    Date: 2016
+*    ISBN-13: 978-0133970784
+*
+***************************************************************************************/
+
 // private insert city method
-void BinarySearchTree::insert(City city, TreeNode*& node) {
+void BinarySearchTree::insert(City city, TreeNode*& node) const {
 	// check that gps coordinates are not already in the tree
 	if (!searchByCoords(city.gpsCoordinates)) {
 		if (node == nullptr) {
@@ -54,12 +65,12 @@ void BinarySearchTree::insert(City city, TreeNode*& node) {
 }
 
 // public delete by name method
-void BinarySearchTree::deleteByName(string name) {
+void BinarySearchTree::deleteByName(string name) const {
 	deleteByName(root, name);
 }
 
 // private recursive delete by name methods
-TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) {
+TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) const {
 	if (node != nullptr) {
 		if (name < node->city.name) {
 			node->leftPtr = deleteByName(node->leftPtr, name);
@@ -93,12 +104,12 @@ TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) {
 }
 
 // public delete by coordinates method
-void BinarySearchTree::deleteByCoord(pair<string, string> coords) {
+void BinarySearchTree::deleteByCoord(pair<string, string> coords) const {
 	deleteByCoord(root, coords);
 }
 
 // private recursive delete by coordinates methods
-TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> coords) {
+TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> coords) const {
 	if (node != nullptr) {
 		if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second)
 		{
@@ -193,33 +204,46 @@ bool BinarySearchTree::searchByCoords(TreeNode* node, pair<string, string> coord
 // private minimum value method
 TreeNode* BinarySearchTree::minVal(TreeNode* node) {
 	if (node == nullptr)
-		return 0;
+		return nullptr;
 	if (node->leftPtr)
 		return minVal(node->leftPtr);
 	return node;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-int BinarySearchTree::height() const
-{
-	return 0;
+// public height method
+int BinarySearchTree::height() const {
+	return height(root);
 }
 
-int BinarySearchTree::height(TreeNode* node) const
-{
-	return 0;
+/***************************************************************************************
+
+*    Usage: Used
+*    Title: Total Height of a Binary Search Tree
+*    Author: Pippin1289
+*    Date: 2013
+*    Available: http://stackoverflow.com/a/19321003/3633676
+*
+***************************************************************************************/
+
+// private recursive height method
+int BinarySearchTree::height(TreeNode *node) const {
+	// when node is null return -1
+	if (node == nullptr)
+		return -1;
+	// recursively call height method
+	else
+		// for every level of nodes return 1
+		return 1 + max(height(node->leftPtr), height(node->rightPtr));
 }
+
+
+
+
+
+
+
+
+
 
 // public show binary search tree in order
 void BinarySearchTree::showInOrder() const {
@@ -253,15 +277,24 @@ void BinarySearchTree::showPostOrder(TreeNode* node) const
 
 // public pretty print method
 void BinarySearchTree::prettyPrint() const {
-	prettyPrint(root, 5);
+	prettyPrint(root, 0);
 }
 
-// http://stackoverflow.com/a/26699993
+/***************************************************************************************
+
+*    Usage: Modified
+*    Title: Print a Binary Tree in a pretty way
+*    Author: Vaultah
+*    Date: 2015
+*    Available: http://stackoverflow.com/a/26699993
+*
+***************************************************************************************/
+
 // private recursive pretty print method
 void BinarySearchTree::prettyPrint(TreeNode *node, int indent) const {
 	if (node != nullptr) {
 		if (node->rightPtr) {
-			prettyPrint(node->rightPtr, indent + 6);
+			prettyPrint(node->rightPtr, indent + 7);
 		}
 		if (indent) {
 			cout << setw(indent) << ' ';
@@ -272,7 +305,7 @@ void BinarySearchTree::prettyPrint(TreeNode *node, int indent) const {
 		cout << node->city.name << "\n ";
 		if (node->leftPtr) {
 			cout << setw(indent + 3) << ' ' << " \\\n";
-			prettyPrint(node->leftPtr, indent + 6);
+			prettyPrint(node->leftPtr, indent + 7);
 		}
 	}
 }

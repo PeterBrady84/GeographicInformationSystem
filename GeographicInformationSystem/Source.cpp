@@ -77,11 +77,19 @@ int main() {
 	}
 	cout << endl;
 
+	cout << "Tree Height" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cout << "Height : " << cityTree.height() << endl << endl;
+
 	cout << "Delete Tree (Destructor)" << endl;
 	cityTree.~BinarySearchTree();
 	cout << "Print Tree" << endl;
 	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.prettyPrint();
+	cout << endl;
+	cout << "Tree Height" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cout << "Height : " << cityTree.height() << endl << endl;
 	cout << endl << endl << "END" << endl;
 	system("pause");
 }

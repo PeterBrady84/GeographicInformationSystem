@@ -13,8 +13,8 @@ public:
 	BinarySearchTree();
 	virtual ~BinarySearchTree();
 	void insert(City city);
-	void deleteByName(string name);
-	void deleteByCoord(pair<string, string> coords);
+	void deleteByName(string name) const;
+	void deleteByCoord(pair<string, string> coords) const;
 	bool searchByName(string name) const;
 	bool searchByCoords(pair<string, string> coords) const;
 	int height() const;
@@ -24,10 +24,10 @@ public:
 	void prettyPrint() const;
 	// TODO add cities within certain distance method
 private:
-	void deleteTree(TreeNode *& node); // used by destructor
-	void insert(City city, TreeNode *& node);
-	TreeNode* deleteByName(TreeNode *node, string name);
-	TreeNode* deleteByCoord(TreeNode *node, pair<string, string> coords);
+	static void deleteTree(TreeNode *& node); // used by destructor
+	void insert(City city, TreeNode *& node) const;
+	TreeNode* deleteByName(TreeNode *node, string name) const;
+	TreeNode* deleteByCoord(TreeNode *node, pair<string, string> coords) const;
 	bool searchByName(TreeNode *node, string name) const;
 	bool searchByCoords(TreeNode *node, pair<string, string> coords) const;
 	int height(TreeNode *node) const;
@@ -35,7 +35,7 @@ private:
 	void showPreOrder(TreeNode *node) const;
 	void showPostOrder(TreeNode *node) const;
 	void prettyPrint(TreeNode * node, int indent) const;
-	TreeNode* minVal(TreeNode *node);
+	static TreeNode* minVal(TreeNode *node);
 	// TODO add cities within certain distance recursive method
 	TreeNode *root;
 };
