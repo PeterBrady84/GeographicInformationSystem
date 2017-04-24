@@ -22,7 +22,8 @@ public:
 	void showPreOrder() const;
 	void showPostOrder() const;
 	void prettyPrint() const;
-	// TODO add cities within certain distance method
+	void nearByCities(pair<double, double> coords, double distance) const;
+
 private:
 	static void deleteTree(TreeNode *& node); // used by destructor
 	void insert(City city, TreeNode *& node) const;
@@ -36,7 +37,10 @@ private:
 	void showPostOrder(TreeNode *node) const;
 	void prettyPrint(TreeNode * node, int indent) const;
 	static TreeNode* minVal(TreeNode *node);
-	// TODO add cities within certain distance recursive method
+	void nearByCities(TreeNode * node, pair<double, double> coords, double distance) const;
+	static double deg2rad(double deg);
+	static double rad2deg(double rad);
+	double distanceEarth(pair<double, double> location1, pair<double, double> location2) const;
 	TreeNode *root;
 };
 

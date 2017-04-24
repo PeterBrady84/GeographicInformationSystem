@@ -43,7 +43,7 @@ int main() {
 	cityTree.insert(city8);		// throws duplicate coordinates error
 
 	//cityTree.showInOrder();
-	cout << endl << endl;
+	cout << endl;
 	cout << "Print Tree" << endl;
 	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.prettyPrint();
@@ -95,6 +95,10 @@ int main() {
 	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
 	cityTree.showPostOrder();
 	cout << endl << endl;
+
+	cout << "Cities within 500km of Dublin" << endl;
+	cout << setfill('=') << setw(30) << "=" << setfill(' ') << endl;
+	cityTree.nearByCities(make_pair(53.3498, -6.2603), 500);
 
 	cout << "Delete Tree (Destructor)" << endl;
 	cityTree.~BinarySearchTree();

@@ -3,10 +3,14 @@
 //  Copyright (c) 2017 Peter Brady.
 //  X00115070
 //
+#define _USE_MATH_DEFINES
+#define earthRadiusKm 6371.0
 #include "BinarySearchTree.h"
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <math.h>
+
 using namespace std;
 
 // default constructor for binary search tree
@@ -95,7 +99,7 @@ TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) const {
 			}
 			else {
 				TreeNode* temp = minVal(node->rightPtr);
-				node->city.name = temp->city.name;
+				node->city = temp->city;
 				node->rightPtr = deleteByName(node->rightPtr, temp->city.name);
 			}
 		}
@@ -129,8 +133,8 @@ TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<double, double> c
 			}
 			else {
 				TreeNode* temp = minVal(node->rightPtr);
-				node->city.name = temp->city.name;
-				node->rightPtr = deleteByName(node->rightPtr, temp->city.name);
+				node->city = temp->city;
+				node->rightPtr = deleteByCoord(node->rightPtr, temp->city.gpsCoordinates);
 			}
 		}
 		else {
@@ -158,7 +162,7 @@ bool BinarySearchTree::searchByName(TreeNode* node, string name) const {
 		return false;
 	}
 	else if (node->city.name == name) {
-		cout << node->city;
+		cout << node->city << endl;
 		return true;
 	}
 	else if (node->city.name > name) {
@@ -193,7 +197,7 @@ bool BinarySearchTree::searchByCoords(TreeNode* node, pair<double, double> coord
 		return false;
 	}
 	else if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second) {
-		cout << node->city;
+		cout << node->city << endl;
 		return true;
 	}
 	else {
@@ -292,6 +296,51 @@ void BinarySearchTree::showPreOrder(TreeNode *node) const {
 		/* now recur on right subtree */
 		showPreOrder(node->rightPtr);
 	}
+}
+
+void BinarySearchTree::nearByCities(pair<double, double> coords, double distance) const {
+	nearByCities(root, coords, distance);
+}
+
+void BinarySearchTree::nearByCities(TreeNode * node, pair<double, double> coords, double distance) const {
+	if (node != nullptr) {
+		if (distanceEarth(coords, node->city.gpsCoordinates) < distance) {
+			cout << node->city << "Distance From specified point: " << distanceEarth(coords, node->city.gpsCoordinates) << " Km" << endl << endl;
+		}
+		nearByCities(node->leftPtr, coords, distance);
+		nearByCities(node->rightPtr, coords, distance);
+	}
+}
+
+/***************************************************************************************
+
+*    Usage: Used
+*    Title: Calculating the distance between 2 latitudes and longitudes that are saved in a text file
+*    Author: MrTJ
+*    Date: 2012
+*    Available: http://stackoverflow.com/a/10205532
+*
+***************************************************************************************/
+
+// This function converts decimal degrees to radians
+double BinarySearchTree::deg2rad(double deg) {
+	return (deg * M_PI / 180);
+}
+
+//  This function converts radians to decimal degrees
+double BinarySearchTree::rad2deg(double rad) {
+	return (rad * 180 / M_PI);
+}
+
+double BinarySearchTree::distanceEarth(pair<double, double> location1, pair<double, double> location2) const {
+	double lat1r, lon1r, lat2r, lon2r, u, v;
+	lat1r = deg2rad(location1.first);
+	lon1r = deg2rad(location1.second);
+	lat2r = deg2rad(location2.first);
+	lon2r = deg2rad(location2.second);
+	u = sin((lat2r - lat1r) / 2);
+	v = sin((lon2r - lon1r) / 2);
+	return 2.0 * earthRadiusKm * asin(sqrt(u * u + cos(lat1r) * cos(lat2r) * v * v));
 }
 
 // public pretty print method

@@ -17,7 +17,7 @@ City::City(string name, pair<double, double> coords, int pop, double temp)
 ostream & operator<<(ostream & stream, City & city) {
 	stream << "City: " << city.name << "\nGPS Coordinates: " << city.gpsCoordinates.first << ", "
 		<< city.gpsCoordinates.second << "\nPopulation: " << city.population << "\nAverage Temp: "
-		<< city.averageTemperature << endl << endl;
+		<< city.averageTemperature << endl;
 		
 	return stream;
 }
