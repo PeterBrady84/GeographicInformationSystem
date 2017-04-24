@@ -298,10 +298,12 @@ void BinarySearchTree::showPreOrder(TreeNode *node) const {
 	}
 }
 
+// public nearByCities method
 void BinarySearchTree::nearByCities(pair<double, double> coords, double distance) const {
 	nearByCities(root, coords, distance);
 }
 
+// private nearByCities method
 void BinarySearchTree::nearByCities(TreeNode * node, pair<double, double> coords, double distance) const {
 	if (node != nullptr) {
 		if (distanceEarth(coords, node->city.gpsCoordinates) < distance) {
@@ -332,6 +334,7 @@ double BinarySearchTree::rad2deg(double rad) {
 	return (rad * 180 / M_PI);
 }
 
+// public calculate distances between two points method
 double BinarySearchTree::distanceEarth(pair<double, double> location1, pair<double, double> location2) const {
 	double lat1r, lon1r, lat2r, lon2r, u, v;
 	lat1r = deg2rad(location1.first);
