@@ -104,12 +104,12 @@ TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) const {
 }
 
 // public delete by coordinates method
-void BinarySearchTree::deleteByCoord(pair<string, string> coords) const {
+void BinarySearchTree::deleteByCoord(pair<double, double> coords) const {
 	deleteByCoord(root, coords);
 }
 
 // private recursive delete by coordinates methods
-TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<string, string> coords) const {
+TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<double, double> coords) const {
 	if (node != nullptr) {
 		if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second)
 		{
@@ -183,12 +183,12 @@ bool BinarySearchTree::searchByName(TreeNode* node, string name) const {
 }
 
 // public search by coordinates method
-bool BinarySearchTree::searchByCoords(pair<string, string> coords) const {
+bool BinarySearchTree::searchByCoords(pair<double, double> coords) const {
 	return searchByCoords(root, coords);
 }
 
 // private recursive search by coordinates method
-bool BinarySearchTree::searchByCoords(TreeNode* node, pair<string, string> coords) const {
+bool BinarySearchTree::searchByCoords(TreeNode* node, pair<double, double> coords) const {
 	if (node == nullptr) {
 		return false;
 	}

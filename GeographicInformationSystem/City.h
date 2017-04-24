@@ -11,13 +11,13 @@ using namespace std;
 class City {
 public:
 	City();
-	City(string name, pair<string, string> coords, int pop, double temp);
+	City(string name, pair<double, double> coords, int pop, double temp);
 	friend ostream& operator<<(ostream& stream, City& city);
 	friend class TreeNode;
 	friend class BinarySearchTree;
 private:
 	string name;
-	pair<string, string> gpsCoordinates;
+	pair<double, double> gpsCoordinates;
 	int population;
 	double averageTemperature;
 };

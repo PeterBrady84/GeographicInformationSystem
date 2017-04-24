@@ -7,10 +7,10 @@
 
 // default constructor for city object
 City::City()
-	: name(""), gpsCoordinates("", ""), population(0), averageTemperature(0.0) {}
+	: name(""), gpsCoordinates(0, 0), population(0), averageTemperature(0.0) {}
 
 // overloaded constructor for city object
-City::City(string name, pair<string, string> coords, int pop, double temp)
+City::City(string name, pair<double, double> coords, int pop, double temp)
 	: name(name), gpsCoordinates(coords), population(pop), averageTemperature(temp) {}
 
 // overloaded stream operator for output of a city objects details

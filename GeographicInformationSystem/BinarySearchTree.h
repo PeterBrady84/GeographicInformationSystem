@@ -14,9 +14,9 @@ public:
 	virtual ~BinarySearchTree();
 	void insert(City city);
 	void deleteByName(string name) const;
-	void deleteByCoord(pair<string, string> coords) const;
+	void deleteByCoord(pair<double, double> coords) const;
 	bool searchByName(string name) const;
-	bool searchByCoords(pair<string, string> coords) const;
+	bool searchByCoords(pair<double, double> coords) const;
 	int height() const;
 	void showInOrder() const;
 	void showPreOrder() const;
@@ -27,9 +27,9 @@ private:
 	static void deleteTree(TreeNode *& node); // used by destructor
 	void insert(City city, TreeNode *& node) const;
 	TreeNode* deleteByName(TreeNode *node, string name) const;
-	TreeNode* deleteByCoord(TreeNode *node, pair<string, string> coords) const;
+	TreeNode* deleteByCoord(TreeNode *node, pair<double, double> coords) const;
 	bool searchByName(TreeNode *node, string name) const;
-	bool searchByCoords(TreeNode *node, pair<string, string> coords) const;
+	bool searchByCoords(TreeNode *node, pair<double, double> coords) const;
 	int height(TreeNode *node) const;
 	void showInOrder(TreeNode *node) const;
 	void showPreOrder(TreeNode *node) const;
