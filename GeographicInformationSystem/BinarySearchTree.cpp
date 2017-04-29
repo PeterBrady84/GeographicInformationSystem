@@ -10,7 +10,6 @@
 #include <iomanip>
 #include <algorithm>
 #include <math.h>
-
 using namespace std;
 
 // default constructor for binary search tree
@@ -69,51 +68,52 @@ void BinarySearchTree::insert(City city, TreeNode*& node) const {
 }
 
 // public delete by name method
-void BinarySearchTree::deleteByName(string name) const {
+void BinarySearchTree::deleteByName(string name) {
 	deleteByName(root, name);
 }
 
 // private recursive delete by name methods
-TreeNode* BinarySearchTree::deleteByName(TreeNode* node, string name) const {
-	if (node != nullptr) {
-		if (name < node->city.name) {
-			node->leftPtr = deleteByName(node->leftPtr, name);
+TreeNode* BinarySearchTree::deleteByName(TreeNode *& node, string name) const {
+	if (node == nullptr) {
+		return node;
+	}
+	if (name < node->city.name) {
+		node->leftPtr = deleteByName(node->leftPtr, name);
+	}
+	else if (name > node->city.name) {
+		node->rightPtr = deleteByName(node->rightPtr, name);
+	}
+	else {
+		if (node->isLeaf()) {
+			delete node;
+			node = nullptr;
 		}
-		else if (name > node->city.name) {
-			node->rightPtr = deleteByName(node->rightPtr, name);
+		else if (node->leftPtr == nullptr) {
+			TreeNode* temp = node;
+			node = node->rightPtr;
+			delete temp;
+		}
+		else if (node->rightPtr == nullptr) {
+			TreeNode* temp = node;
+			node = node->leftPtr;
+			delete temp;
 		}
 		else {
-			if (node->isLeaf()) {
-				delete node;
-				node = nullptr;
-			}
-			else if (node->leftPtr == nullptr) {
-				TreeNode* temp = node;
-				node = node->rightPtr;
-				delete temp;
-			}
-			else if (node->rightPtr == nullptr) {
-				TreeNode* temp = node;
-				node = node->leftPtr;
-				delete temp;
-			}
-			else {
-				TreeNode* temp = minVal(node->rightPtr);
-				node->city = temp->city;
-				node->rightPtr = deleteByName(node->rightPtr, temp->city.name);
-			}
+			TreeNode* temp = minVal(node->rightPtr);
+			node->city = temp->city;
+			node->rightPtr = deleteByName(node->rightPtr, temp->city.name);
 		}
 	}
 	return node;
 }
 
 // public delete by coordinates method
-void BinarySearchTree::deleteByCoord(pair<double, double> coords) const {
+void BinarySearchTree::deleteByCoord(pair<double, double> coords) {
 	deleteByCoord(root, coords);
 }
 
 // private recursive delete by coordinates methods
-TreeNode* BinarySearchTree::deleteByCoord(TreeNode* node, pair<double, double> coords) const {
+TreeNode* BinarySearchTree::deleteByCoord(TreeNode *& node, pair<double, double> coords) const {
 	if (node != nullptr) {
 		if (node->city.gpsCoordinates.first == coords.first && node->city.gpsCoordinates.second == coords.second)
 		{
@@ -307,7 +307,8 @@ void BinarySearchTree::nearByCities(pair<double, double> coords, double distance
 void BinarySearchTree::nearByCities(TreeNode * node, pair<double, double> coords, double distance) const {
 	if (node != nullptr) {
 		if (distanceEarth(coords, node->city.gpsCoordinates) < distance) {
-			cout << node->city << "Distance From specified point: " << distanceEarth(coords, node->city.gpsCoordinates) << " Km" << endl << endl;
+			cout << node->city << "Distance : " << distanceEarth(coords, node->city.gpsCoordinates)
+				<< " Km" << endl << endl;
 		}
 		nearByCities(node->leftPtr, coords, distance);
 		nearByCities(node->rightPtr, coords, distance);
